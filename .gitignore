@@ -1,0 +1,50 @@
+# Ignore Python-specific files
+*.pyc
+*.pyo
+__pycache__/
+*.log
+
+# Ignore virtual environment
+venv/
+env/
+
+# Ignore environment variables
+.env
+
+# Ignore Flask-related cache
+instance/
+*.db
+
+# Ignore React-specific files
+node_modules/
+dist/
+build/
+
+# Ignore log files and temporary files
+*.log
+*.temp
+*.tmp
+
+# Ignore IDE-specific files
+.vscode/
+.idea/
+*.iml
+
+# Ignore system-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore package manager lock files if you prefer
+# Uncomment if you don't want to track these files
+# package-lock.json
+# yarn.lock
+
+# Ignore deployment-specific files
+*.local
+*.bak
+*.swp
+
+# Ignore coverage reports
+coverage/
+*.cover
+.coverage
