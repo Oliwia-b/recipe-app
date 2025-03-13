@@ -11,21 +11,30 @@ import ListGroup from "../components/ListGroup";
 export default function IngredientsPage() {
   // ingredientsList will be fetched from database
 
-  const [ingredients, setIngredients] = useState([
-    "apple",
-    "potatos",
-    "butter",
-  ]);
+  const [ingredients, setIngredients] = useState(
+    new Set(["apple", "potatos", "butter"])
+  );
 
   function addIngredient(ingredient: string) {
+    setIngredients(
+      (prevIngredients) => new Set([...prevIngredients, ingredient])
+    );
     console.log(`${ingredient} added`);
+  }
+
+  function deleteIngredient(ingredient: string) {
+    console.log(ingredient);
   }
 
   return (
     <div>
       <Header></Header>
       <IngredientInput addIngredient={addIngredient}></IngredientInput>
-      <ListGroup items={ingredients} heading="My ingredients"></ListGroup>
+      <ListGroup
+        onItemClick={deleteIngredient}
+        items={ingredients}
+        heading="My ingredients"
+      ></ListGroup>
     </div>
   );
 }
