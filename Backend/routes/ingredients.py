@@ -22,7 +22,7 @@ def get_ingredients():
 @jwt_required()
 def add_ingredients():
     user = User.query.filter_by(username=get_jwt_identity()).first()
-    ingredient_name = request.json.get('name').strip()
+    ingredient_name = request.json.get('name').strip().lower().title()
     ingredient = Ingredient.query.filter_by(name=ingredient_name).first()
 
     # Check if user-ingredient relation already exists
@@ -31,7 +31,6 @@ def add_ingredients():
 
     # Check if ingredient already exists in the database
     if not ingredient:
-        # TODO: Function checking and preparing the ingredientformat before adding it to the databse
         # Add a new ingredient to the database
         ingredient = Ingredient(name=ingredient_name)
         db.session.add(ingredient)

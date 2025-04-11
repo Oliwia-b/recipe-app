@@ -3,26 +3,36 @@
 // Passes ingredients to IngredientList
 // Passes handlers for adding/removing ingredients to IngredientInput
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import IngredientInput from "../components/IngredientInput";
 import ListGroup from "../components/ListGroup";
+import { getIngredients, postIngredient } from "../services/ingredientService";
 
 export default function IngredientsPage() {
-  // ingredientsList will be fetched from database
+  const [ingredients, setIngredients] = useState(new Set<string>());
 
-  const [ingredients, setIngredients] = useState(
-    new Set(["apple", "potatos", "butter"])
-  );
+  function updateList() {
+    getIngredients().then((data) => {
+      if (data) setIngredients(new Set(data));
+    });
+  }
+  // display ingredients list at the beggining
+  useEffect(updateList, []);
 
   function addIngredient(ingredient: string) {
-    setIngredients(
-      (prevIngredients) => new Set([...prevIngredients, ingredient])
-    );
-    console.log(`${ingredient} added`);
+    // POST request and update ingrediend list if successful
+    (async function () {
+      const result = await postIngredient(ingredient);
+      // console.log("result:", result);
+      if (result) updateList();
+    })();
   }
 
   function deleteIngredient(ingredient: string) {
+    // 1. delete request
+    // 2. get request
+    // 3. update state
     console.log(ingredient);
   }
 
