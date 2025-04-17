@@ -7,7 +7,11 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import IngredientInput from "../components/IngredientInput";
 import ListGroup from "../components/ListGroup";
-import { getIngredients, postIngredient } from "../services/ingredientService";
+import {
+  getIngredients,
+  postIngredient,
+  deleteIngredient,
+} from "../services/ingredientService";
 
 export default function IngredientsPage() {
   const [ingredients, setIngredients] = useState(new Set<string>());
@@ -20,8 +24,8 @@ export default function IngredientsPage() {
   // display ingredients list at the beggining
   useEffect(updateList, []);
 
-  function addIngredient(ingredient: string) {
-    // POST request and update ingrediend list if successful
+  function handleAddIngredient(ingredient: string) {
+    // make a POST request and update ingredients list if added successfully
     (async function () {
       const result = await postIngredient(ingredient);
       // console.log("result:", result);
@@ -29,19 +33,21 @@ export default function IngredientsPage() {
     })();
   }
 
-  function deleteIngredient(ingredient: string) {
-    // 1. delete request
-    // 2. get request
-    // 3. update state
-    console.log(ingredient);
+  function handleDeleteIngredient(ingredient: string) {
+    // make a DELETE request and update ingredients list if removed successfully
+    (async function () {
+      const result = await deleteIngredient(ingredient);
+      console.log("result:", result);
+      if (result) updateList();
+    })();
   }
 
   return (
     <div>
       <Header></Header>
-      <IngredientInput addIngredient={addIngredient}></IngredientInput>
+      <IngredientInput addIngredient={handleAddIngredient}></IngredientInput>
       <ListGroup
-        onItemClick={deleteIngredient}
+        onItemClick={handleDeleteIngredient}
         items={ingredients}
         heading="My ingredients"
       ></ListGroup>

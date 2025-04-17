@@ -2,9 +2,10 @@ from extensions import db
 from werkzeug.security import generate_password_hash, check_password_hash
 
 
-# Many to many relationship - junction table
+# Many to many relationship - junction table, stores foreign keys
 user_ingredient = db.Table(
     "user_ingredient",
+    # Composite primary key (combination user_id, ingredient_id must be unique)
     db.Column('user_id', db.Integer, db.ForeignKey(
         'user.id'), primary_key=True),
     db.Column('ingredient_id', db.Integer, db.ForeignKey(
@@ -17,7 +18,8 @@ class User(db.Model):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
 
-    # Ingredients that the user has
+    # Connect User and Ingredient through user_ingredient table
+    # (Ingredients that the user has)
     has_ingredients = db.relationship(
         'Ingredient', secondary=user_ingredient, backref='owners')
 
@@ -31,8 +33,3 @@ class User(db.Model):
 class Ingredient(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True, nullable=False)
-
-
-class Recipe(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    # Either db or ai for fetching recipes

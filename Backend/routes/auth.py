@@ -42,7 +42,8 @@ def login():
     # Check the password
     if user.check_password(password):
         # Generate JWT
-        access_token = create_access_token(identity=username)
+        user_id = str(user.id)
+        access_token = create_access_token(identity=user_id)
         return jsonify(access_token=access_token)
 
     else:

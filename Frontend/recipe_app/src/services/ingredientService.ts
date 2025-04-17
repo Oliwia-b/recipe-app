@@ -1,7 +1,7 @@
 const API_URL = "http://localhost:5000/api/ingredients";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0NDI4OTkxNiwianRpIjoiMzcyNTczMmUtMjA2My00ODA5LTkyODEtZDhhYTIwNGFjNTQ1IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IkFsYSIsIm5iZiI6MTc0NDI4OTkxNiwiY3NyZiI6ImVlNjA3OTViLWIyYzgtNDNhNC04OTJmLTJhMDdkYWIwNWVkZiIsImV4cCI6MTc0NDg5NDcxNn0.hf5hDfGpS0wbaUkRa1W95FJiiqUBl98Lf9bI0Fbtoz8";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0NDU2OTkyOCwianRpIjoiNWFkZTZmMDktMzg5MS00ZGZlLWI4MDEtZmE1NDQ1NDRiNTU5IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDQ1Njk5MjgsImNzcmYiOiJkMGY1Y2UyZC1lMGYwLTRhZGYtOTE2Ny1kMTUxNTU3MzJkZTQiLCJleHAiOjE3NDUxNzQ3Mjh9.YhTQihu6j0lajZKn_-HzhZUx0oJxYv1mCzqYhjOfVos";
 
 export async function getIngredients() {
   try {
@@ -32,6 +32,7 @@ export async function getIngredients() {
     return json;
   } catch (error) {
     let message;
+
     if (error instanceof Error) message = error.message;
     alert(message);
     return null;
@@ -48,14 +49,40 @@ export async function postIngredient(ingredient: string) {
       },
       body: JSON.stringify({ name: `${ingredient}` }),
     });
+    const data = await response.json();
 
     if (!response.ok) {
-      const data = await response.json();
       throw new Error(
         data.error || `Error ${response.status}: ${response.statusText}`
       );
     }
-    return response.json();
+    return data;
+  } catch (error) {
+    if (error instanceof Error) {
+      alert(error.message);
+    } else {
+      alert(`Unexpected error: ${error}`);
+    }
+    return null;
+  }
+}
+
+export async function deleteIngredient(ingredient: string) {
+  try {
+    const response = await fetch(`${API_URL}/${ingredient}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+          `Unexpected error ${response.status}: ${response.statusText}`
+      );
+    }
+    return data;
   } catch (error) {
     if (error instanceof Error) {
       alert(error.message);
