@@ -14,18 +14,20 @@ function IngredientInput({ addIngredient }: Props) {
       setError("Ingredient must be at least 3 characters long.");
     } else {
       addIngredient(newIngredient);
+      setError("");
     }
   }
 
   return (
-    <form action={onSubmit}>
+    <form className="add-ingredient-form" action={onSubmit}>
       <input
+        className="ingredient-input"
         type="text"
         name="ingredient"
         aria-label="Add ingredient"
         placeholder="e.g. butter"
       />
-      <button>Add ingredient</button>
+      <button className="add-ingredient-btn">Add ingredient</button>
       {error && <p>{error}</p>}
     </form>
   );

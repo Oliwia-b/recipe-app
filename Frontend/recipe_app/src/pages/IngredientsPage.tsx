@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import IngredientInput from "../components/IngredientInput";
 import ListGroup from "../components/ListGroup";
+import Recipe from "../components/Recipe";
 import {
   getIngredients,
   postIngredient,
@@ -21,6 +22,7 @@ export default function IngredientsPage() {
       if (data) setIngredients(new Set(data));
     });
   }
+
   // display ingredients list at the beggining
   useEffect(updateList, []);
 
@@ -45,12 +47,19 @@ export default function IngredientsPage() {
   return (
     <div>
       <Header></Header>
-      <IngredientInput addIngredient={handleAddIngredient}></IngredientInput>
-      <ListGroup
-        onItemClick={handleDeleteIngredient}
-        items={ingredients}
-        heading="My ingredients"
-      ></ListGroup>
+      <main>
+        <div className="main-content-wrapper">
+          <IngredientInput
+            addIngredient={handleAddIngredient}
+          ></IngredientInput>
+          <ListGroup
+            onItemClick={handleDeleteIngredient}
+            items={ingredients}
+            heading="My ingredients"
+          ></ListGroup>
+          <Recipe ingredients={ingredients}></Recipe>
+        </div>
+      </main>
     </div>
   );
 }

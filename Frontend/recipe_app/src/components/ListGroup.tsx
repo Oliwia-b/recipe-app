@@ -6,20 +6,28 @@ interface Props {
 
 function ListGroup({ items, heading, onItemClick }: Props) {
   return (
-    <div>
+    <div className="list-group">
       <h2>{heading}</h2>
       {items.size === 0 ? (
         <p>No item found</p>
       ) : (
-        <ul>
-          {[...items].map((item) => (
-            <li key={item}>
-              {item}
-
-              <button onClick={() => onItemClick?.(item)}>Delete</button>
-            </li>
-          ))}
-        </ul>
+        <div className="list-container">
+          <ul>
+            {[...items].map((item) => (
+              <li key={item}>
+                <div className="ingredient">
+                  <span>{item}</span>
+                  <button
+                    className="delete-btn"
+                    onClick={() => onItemClick?.(item)}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
       )}
     </div>
   );
