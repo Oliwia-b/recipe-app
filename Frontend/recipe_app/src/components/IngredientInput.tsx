@@ -19,17 +19,21 @@ function IngredientInput({ addIngredient }: Props) {
   }
 
   return (
-    <form className="add-ingredient-form" action={onSubmit}>
-      <input
-        className="ingredient-input"
-        type="text"
-        name="ingredient"
-        aria-label="Add ingredient"
-        placeholder="e.g. butter"
-      />
-      <button className="add-ingredient-btn">Add ingredient</button>
-      {error && <p>{error}</p>}
-    </form>
+    <div className="add-ingredient-wrapper">
+      <form className="add-ingredient-form" action={onSubmit}>
+        <input
+          className="ingredient-input"
+          type="text"
+          name="ingredient"
+          aria-label="Add ingredient"
+          placeholder="e.g. butter"
+        />
+        <button className="add-ingredient-btn">Add ingredient</button>
+      </form>
+      <div className="ingredient-error">
+        {error && <span className="error">{error}</span>}
+      </div>
+    </div>
   );
 }
 

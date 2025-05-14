@@ -13,9 +13,12 @@ import {
   postIngredient,
   deleteIngredient,
 } from "../services/ingredientService";
+import logoutIcon from "../assets/logout.png";
+import { useNavigate } from "react-router-dom";
 
 export default function IngredientsPage() {
   const [ingredients, setIngredients] = useState(new Set<string>());
+  const navigate = useNavigate();
 
   function updateList() {
     getIngredients().then((data) => {
@@ -44,10 +47,20 @@ export default function IngredientsPage() {
     })();
   }
 
+  function handleLogout() {
+    setIngredients(new Set());
+    localStorage.removeItem("accessToken");
+    navigate("/");
+  }
+
   return (
     <div>
       <Header></Header>
+
       <main>
+        <button className="logout-button" onClick={handleLogout}>
+          <img src={logoutIcon} alt="logout button" />
+        </button>
         <div className="main-content-wrapper">
           <IngredientInput
             addIngredient={handleAddIngredient}

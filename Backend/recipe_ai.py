@@ -4,13 +4,6 @@ import os
 
 
 load_dotenv()
-HF_ACCESS_TOKEN = os.getenv('HF_ACCESS_TOKEN')
-
-
-client = InferenceClient(
-    model='mistralai/Mixtral-8x7B-Instruct-v0.1',
-    token=HF_ACCESS_TOKEN
-)
 
 SYSTEM_PROMPT = """
 You are an assistant that receives a list of ingredients that a user has and suggests a recipe they could make with some or all of those ingredients. You don't need to use every ingredient they mention in your recipe. The recipe can include additional ingredients they didn't mention, but try not to include too many extra ingredients. Format your answer in clean Markdown, with:
@@ -23,6 +16,13 @@ Do not wrap your response in triple backticks or code blocks. Be friendly, expla
 
 
 def get_recipe_from_mistral(ingredients_list):
+
+    HF_ACCESS_TOKEN = os.getenv('HF_ACCESS_TOKEN')
+
+    client = InferenceClient(
+        model='mistralai/Mixtral-8x7B-Instruct-v0.1',
+        token=HF_ACCESS_TOKEN
+    )
 
     ingredients_string = ", ".join(ingredients_list)
 

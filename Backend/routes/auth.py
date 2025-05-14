@@ -14,7 +14,7 @@ def register():
 
     # Check if username is taken
     if User.query.filter_by(username=username).first():
-        return jsonify({'error': 'Username is already taken'}), 400
+        return jsonify({'error': 'Account with this email already exists'}), 400
 
     # Check password requirements
     if len(password) < 8 or ' ' in password:
@@ -41,6 +41,7 @@ def login():
 
     # Check the password
     if user.check_password(password):
+
         # Generate JWT
         user_id = str(user.id)
         access_token = create_access_token(identity=user_id)

@@ -11,7 +11,6 @@ ingredients_bp = Blueprint('ingredients', __name__)
 @jwt_required()
 def get_ingredients():
     user = User.query.filter_by(id=get_jwt_identity()).first()
-    print(user)
     # if not user:
     #     return jsonify({'error': 'User not found'}), 404
 
@@ -58,5 +57,4 @@ def delete_ingredients(name):
         # Remove user-ingredient relation
         user.has_ingredients.remove(ingredient)
         db.session.commit()
-        [print(ing.name) for ing in user.has_ingredients]
         return jsonify({'message': 'Ingredient removed successfully', 'ingredient': ingredient.name}), 200

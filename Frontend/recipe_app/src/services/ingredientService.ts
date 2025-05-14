@@ -1,13 +1,10 @@
 const API_URL = "http://localhost:5000/api/ingredients";
 
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0NjEyNjgxNywianRpIjoiOWMzMDIzNGYtZmJiYS00NjVmLWI2OTQtMDgzNWI0OGEzOWEyIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NDYxMjY4MTcsImNzcmYiOiIzZWYyMTBjYS1hNzMzLTRjMTYtOGQ5Mi1kZmIwNDA4NDIzMzYiLCJleHAiOjE3NDY3MzE2MTd9.xqH04N0ExH88wRWvn8UZ7Sfb4aDLsKX4SaJ3r3Z5bl0";
-
 export async function getIngredients() {
   try {
     const response = await fetch(API_URL, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     if (!response.ok) {
@@ -44,7 +41,7 @@ export async function postIngredient(ingredient: string) {
     const response = await fetch(API_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ name: `${ingredient}` }),
@@ -72,7 +69,7 @@ export async function deleteIngredient(ingredient: string) {
     const response = await fetch(`${API_URL}/${ingredient}`, {
       method: "DELETE",
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
       },
     });
     const data = await response.json();
