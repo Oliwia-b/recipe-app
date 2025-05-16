@@ -1,10 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
-from config import Config
-from extensions import db, jwt
-from routes.auth import auth_bp
-from routes.ingredients import ingredients_bp
-from routes.recipe import recipe_bp
+from app.config import Config
+from app.extensions import db, jwt
+from app.routes.auth import auth_bp
+from app.routes.ingredients import ingredients_bp
+from app.routes.recipe import recipe_bp
 
 
 def create_app():
