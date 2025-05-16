@@ -1,5 +1,5 @@
 from flask import request, jsonify, Blueprint
-from Backend.app.recipe_ai import get_recipe_from_mistral
+from app.recipe_ai import get_recipe_from_mistral
 
 
 recipe_bp = Blueprint('recipe', __name__)

@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
-from Backend.app.config import Config
-from Backend.app.extensions import db, jwt
+from config import Config
+from extensions import db, jwt
 from routes.auth import auth_bp
 from routes.ingredients import ingredients_bp
 from routes.recipe import recipe_bp
