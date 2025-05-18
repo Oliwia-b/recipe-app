@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/generate-recipe";
+const API_URL = "https://recipe-app-oedw.onrender.com/api/generate-recipe";
 
 export default async function generateRecipe(ingredientList: Set<string>) {
   try {

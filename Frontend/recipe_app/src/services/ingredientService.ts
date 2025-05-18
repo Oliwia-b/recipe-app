@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/ingredients";
+const API_URL = "https://recipe-app-oedw.onrender.com/api/ingredients";
 
 export async function getIngredients() {
   try {
