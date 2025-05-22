@@ -1,6 +1,9 @@
-from app.__init__ import app
+from flask import Blueprint
 
 
-@app.route("/ping")
+util_bp = Blueprint('util', __name__)
+
+
+@util_bp.route("/ping")
 def health_check():
     return {"status": "ok"}, 200

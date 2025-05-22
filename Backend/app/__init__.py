@@ -5,6 +5,7 @@ from app.extensions import db, jwt
 from app.routes.auth import auth_bp
 from app.routes.ingredients import ingredients_bp
 from app.routes.recipe import recipe_bp
+from app.routes.health_check import util_bp
 
 
 def create_app():
@@ -24,6 +25,7 @@ def create_app():
     app.register_blueprint(auth_bp)
     app.register_blueprint(ingredients_bp)
     app.register_blueprint(recipe_bp)
+    app.register_blueprint(util_bp)
 
     return app
 
